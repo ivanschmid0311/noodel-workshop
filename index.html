@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Gemeinschafts-Wochenende 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #faf6f0;
+  --warm: #f2ebe0;
+  --brown: #5c3d2e;
+  --brown-light: #8b6352;
+  --accent: #c0714f;
+  --accent2: #7a9e7e;
+  --text: #2d1f14;
+  --text-light: #7a6555;
+  --border: #ddd0c0;
+  --shadow: rgba(92,61,46,0.10);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--brown);
+  color: var(--cream);
+  padding: 36px 32px 28px;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 40px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+header p {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  opacity: 0.75;
+  letter-spacing: 0.5px;
+}
+
+/* ── LOGIN SCREEN ── */
+#loginScreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: 40px 20px;
+}
+.login-card {
+  background: white;
+  border-radius: 16px;
+  padding: 48px 40px;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0 8px 40px var(--shadow);
+  text-align: center;
+}
+.login-card .icon {
+  font-size: 2.8rem;
+  margin-bottom: 16px;
+}
+.login-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: var(--brown);
+  margin-bottom: 8px;
+}
+.login-card p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+.login-card input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--cream);
+  transition: border-color 0.2s;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+.login-card input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 12px;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.5px;
+}
+.btn-primary:hover { background: var(--brown); }
+.btn-primary:active { transform: scale(0.98); }
+.login-error {
+  color: #c0392b;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  display: none;
+}
+
+/* ── MAIN APP ── */
+#app { display: none; }
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--warm);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 32px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab-btn.active {
+  background: white;
+  color: var(--brown);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+/* ── SECTION HEADER ── */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--brown);
+}
+.btn-add {
+  background: var(--accent2);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-add:hover { background: var(--brown); }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 36px 32px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: slideUp 0.2s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--brown);
+  margin-bottom: 20px;
+}
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--cream);
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+.btn-cancel {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid var(--border);
+  background: transparent;
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-cancel:hover { border-color: var(--brown); color: var(--brown); }
+.btn-save {
+  flex: 2;
+  padding: 12px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-save:hover { background: var(--brown); }
+
+/* ── CARDS ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 2px 16px var(--shadow);
+  border-left: 5px solid var(--accent);
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px var(--shadow); }
+.card.workshop { border-left-color: var(--accent2); }
+
+.card-time {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.card.workshop .card-time { color: var(--accent2); }
+
+.card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--brown);
+  margin-bottom: 6px;
+}
+.card-desc {
+  color: var(--text-light);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.card-actions {
+  position: absolute;
+  top: 16px; right: 16px;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.card:hover .card-actions { opacity: 1; }
+.btn-icon {
+  background: var(--warm);
+  border: none;
+  width: 30px; height: 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.btn-icon:hover { background: var(--border); }
+.btn-icon.delete:hover { background: #fde8e8; }
+
+/* ── ANMELDUNGEN ── */
+.signups {
+  margin-top: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+.signups-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.signup-item {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.signup-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--brown);
+}
+.signup-note {
+  font-size: 0.83rem;
+  color: var(--text-light);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.signup-actions {
+  position: absolute;
+  top: 8px; right: 8px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.signup-item:hover .signup-actions { opacity: 1; }
+.btn-signup {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+}
+.btn-signup:hover { background: var(--brown); }
+.card.workshop .btn-signup { background: var(--accent2); }
+.card.workshop .btn-signup:hover { background: var(--brown); }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-light);
+}
+.empty-state .emoji { font-size: 2.5rem; margin-bottom: 12px; }
+.empty-state p { font-size: 0.95rem; }
+
+/* ── USER PILL ── */
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+.user-pill span {
+  background: rgba(255,255,255,0.15);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.logout-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--cream);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover { background: rgba(255,255,255,0.15); }
+
+.count-badge {
+  background: var(--accent);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+.card.workshop .count-badge { background: var(--accent2); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌿 Gemeinschafts-Wochenende 2026</h1>
+  <p>Workshops · Aufgaben · Koordination</p>
+  <div class="user-pill" id="userPill" style="display:none">
+    <span id="userLabel"></span>
+    <button class="logout-btn" onclick="logout()">Abmelden</button>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="icon">🔑</div>
+    <h2>Willkommen</h2>
+    <p>Gib das Passwort ein, um dich anzumelden und dich für Aufgaben & Workshops einzutragen.</p>
+    <input type="password" id="passwordInput" placeholder="Passwort" onkeydown="if(event.key==='Enter')login()">
+    <button class="btn-primary" onclick="login()">Anmelden</button>
+    <p class="login-error" id="loginError">Falsches Passwort. Bitte nochmal versuchen.</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="container">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('workshops')">🎯 Workshops</button>
+      <button class="tab-btn" onclick="showTab('aufgaben')">✅ Aufgaben</button>
+    </div>
+
+    <!-- WORKSHOPS TAB -->
+    <div id="tab-workshops">
+      <div class="section-header">
+        <h2>Workshops</h2>
+        <button class="btn-add" onclick="openModal('workshop')">＋ Workshop hinzufügen</button>
+      </div>
+      <div class="cards-grid" id="workshopList"></div>
+    </div>
+
+    <!-- AUFGABEN TAB -->
+    <div id="tab-aufgaben" style="display:none">
+      <div class="section-header">
+        <h2>Aufgaben</h2>
+        <button class="btn-add" onclick="openModal('aufgabe')">＋ Aufgabe hinzufügen</button>
+      </div>
+      <div class="cards-grid" id="aufgabeList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Add/Edit Workshop or Aufgabe -->
+<div class="modal-overlay" id="itemModal">
+  <div class="modal">
+    <h3 id="modalTitle">Workshop hinzufügen</h3>
+    <div class="form-group">
+      <label>Titel</label>
+      <input type="text" id="itemTitle" placeholder="z.B. Worship-Abend">
+    </div>
+    <div class="form-group">
+      <label>Beschreibung</label>
+      <textarea id="itemDesc" rows="3" placeholder="Kurze Beschreibung..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Zeit / Wann</label>
+      <input type="text" id="itemTime" placeholder="z.B. Samstag, 14:00–16:00 Uhr">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('itemModal')">Abbrechen</button>
+      <button class="btn-save" onclick="saveItem()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Sign up -->
+<div class="modal-overlay" id="signupModal">
+  <div class="modal">
+    <h3 id="signupModalTitle">Eintragen</h3>
+    <div class="form-group">
+      <label>Dein Name</label>
+      <input type="text" id="signupName" placeholder="Vorname Nachname">
+    </div>
+    <div class="form-group">
+      <label>Bemerkung <span style="font-weight:300;text-transform:none">(optional)</span></label>
+      <textarea id="signupNote" rows="2" placeholder="z.B. Ich bringe Gitarre mit..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('signupModal')">Abbrechen</button>
+      <button class="btn-save" onclick="saveSignup()">Eintragen</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Edit Signup -->
+<div class="modal-overlay" id="editSignupModal">
+  <div class="modal">
+    <h3>Eintrag bearbeiten</h3>
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" id="editSignupName">
+    </div>
+    <div class="form-group">
+      <label>Bemerkung</label>
+      <textarea id="editSignupNote" rows="2"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('editSignupModal')">Abbrechen</button>
+      <button class="btn-save" onclick="saveEditSignup()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  getFirestore, collection, addDoc, onSnapshot,
+  doc, updateDoc, deleteDoc, serverTimestamp, query, orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA3Elnmu6pNAsAgkvxdEEJdTYV5bdXzrWE",
+  authDomain: "workshop-gemeinschafts-we.firebaseapp.com",
+  projectId: "workshop-gemeinschafts-we",
+  storageBucket: "workshop-gemeinschafts-we.firebasestorage.app",
+  messagingSenderId: "118344500587",
+  appId: "1:118344500587:web:e0cedbfb22c0c8db2ff82e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const PASSWORD = "VauMarcus26";
+
+// ── STATE ──
+let currentTab = 'workshops';
+let editingItemId = null;
+let editingItemType = null;
+let signupTargetId = null;
+let signupTargetType = null;
+let editingSignupId = null;
+let editingSignupParentId = null;
+let editingSignupParentType = null;
+
+// ── LOGIN ──
+window.login = function() {
+  const pw = document.getElementById('passwordInput').value;
+  if (pw === PASSWORD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('userPill').style.display = 'flex';
+    document.getElementById('userLabel').textContent = '✓ Angemeldet';
+    loadAll();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+};
+
+window.logout = function() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('userPill').style.display = 'none';
+  document.getElementById('passwordInput').value = '';
+};
+
+// ── TABS ──
+window.showTab = function(tab) {
+  currentTab = tab;
+  document.getElementById('tab-workshops').style.display = tab === 'workshops' ? 'block' : 'none';
+  document.getElementById('tab-aufgaben').style.display = tab === 'aufgaben' ? 'block' : 'none';
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', (i === 0 && tab === 'workshops') || (i === 1 && tab === 'aufgaben'));
+  });
+};
+
+// ── MODALS ──
+window.openModal = function(type, id = null) {
+  editingItemType = type;
+  editingItemId = id;
+  const isEdit = id !== null;
+  document.getElementById('modalTitle').textContent =
+    isEdit ? (type === 'workshop' ? 'Workshop bearbeiten' : 'Aufgabe bearbeiten')
+           : (type === 'workshop' ? 'Workshop hinzufügen' : 'Aufgabe hinzufügen');
+  if (isEdit) {
+    const items = type === 'workshop' ? workshopsData : aufgabenData;
+    const item = items.find(x => x.id === id);
+    if (item) {
+      document.getElementById('itemTitle').value = item.title || '';
+      document.getElementById('itemDesc').value = item.desc || '';
+      document.getElementById('itemTime').value = item.time || '';
+    }
+  } else {
+    document.getElementById('itemTitle').value = '';
+    document.getElementById('itemDesc').value = '';
+    document.getElementById('itemTime').value = '';
+  }
+  document.getElementById('itemModal').classList.add('open');
+};
+
+window.closeModal = function(id) {
+  document.getElementById(id).classList.remove('open');
+};
+
+window.openSignupModal = function(itemId, type) {
+  signupTargetId = itemId;
+  signupTargetType = type;
+  document.getElementById('signupModalTitle').textContent =
+    type === 'workshop' ? 'Für Workshop eintragen' : 'Für Aufgabe eintragen';
+  document.getElementById('signupName').value = '';
+  document.getElementById('signupNote').value = '';
+  document.getElementById('signupModal').classList.add('open');
+};
+
+window.openEditSignupModal = function(parentId, parentType, signupId, name, note) {
+  editingSignupId = signupId;
+  editingSignupParentId = parentId;
+  editingSignupParentType = parentType;
+  document.getElementById('editSignupName').value = name;
+  document.getElementById('editSignupNote').value = note || '';
+  document.getElementById('editSignupModal').classList.add('open');
+};
+
+// Close on overlay click
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
+});
+
+// ── SAVE ITEM ──
+window.saveItem = async function() {
+  const title = document.getElementById('itemTitle').value.trim();
+  const desc = document.getElementById('itemDesc').value.trim();
+  const time = document.getElementById('itemTime').value.trim();
+  if (!title) return;
+  const colName = editingItemType === 'workshop' ? 'workshops' : 'aufgaben';
+  if (editingItemId) {
+    await updateDoc(doc(db, colName, editingItemId), { title, desc, time });
+  } else {
+    await addDoc(collection(db, colName), { title, desc, time, createdAt: serverTimestamp() });
+  }
+  closeModal('itemModal');
+};
+
+// ── DELETE ITEM ──
+window.deleteItem = async function(type, id) {
+  if (!confirm('Wirklich löschen?')) return;
+  await deleteDoc(doc(db, type === 'workshop' ? 'workshops' : 'aufgaben', id));
+};
+
+// ── SAVE SIGNUP ──
+window.saveSignup = async function() {
+  const name = document.getElementById('signupName').value.trim();
+  const note = document.getElementById('signupNote').value.trim();
+  if (!name) return;
+  const colName = signupTargetType === 'workshop' ? 'workshops' : 'aufgaben';
+  await addDoc(collection(db, colName, signupTargetId, 'signups'), {
+    name, note, createdAt: serverTimestamp()
+  });
+  closeModal('signupModal');
+};
+
+// ── EDIT SIGNUP ──
+window.saveEditSignup = async function() {
+  const name = document.getElementById('editSignupName').value.trim();
+  const note = document.getElementById('editSignupNote').value.trim();
+  if (!name) return;
+  const colName = editingSignupParentType === 'workshop' ? 'workshops' : 'aufgaben';
+  await updateDoc(doc(db, colName, editingSignupParentId, 'signups', editingSignupId), { name, note });
+  closeModal('editSignupModal');
+};
+
+// ── DELETE SIGNUP ──
+window.deleteSignup = async function(parentType, parentId, signupId) {
+  if (!confirm('Eintrag löschen?')) return;
+  const colName = parentType === 'workshop' ? 'workshops' : 'aufgaben';
+  await deleteDoc(doc(db, colName, parentId, 'signups', signupId));
+};
+
+// ── RENDER ──
+let workshopsData = [];
+let aufgabenData = [];
+
+function renderCard(item, type) {
+  const isWorkshop = type === 'workshop';
+  const signupsHtml = item.signups && item.signups.length > 0
+    ? item.signups.map(s => `
+        <div class="signup-item">
+          <div class="signup-name">${esc(s.name)}</div>
+          ${s.note ? `<div class="signup-note">${esc(s.note)}</div>` : ''}
+          <div class="signup-actions">
+            <button class="btn-icon" onclick="openEditSignupModal('${item.id}','${type}','${s.id}',${JSON.stringify(s.name)},${JSON.stringify(s.note||'')})" title="Bearbeiten">✏️</button>
+            <button class="btn-icon delete" onclick="deleteSignup('${type}','${item.id}','${s.id}')" title="Löschen">🗑️</button>
+          </div>
+        </div>`).join('')
+    : '<div style="color:var(--text-light);font-size:0.83rem">Noch niemand eingetragen.</div>';
+
+  const count = item.signups ? item.signups.length : 0;
+
+  return `
+    <div class="card ${isWorkshop ? 'workshop' : ''}">
+      <div class="card-actions">
+        <button class="btn-icon" onclick="openModal('${type}','${item.id}')" title="Bearbeiten">✏️</button>
+        <button class="btn-icon delete" onclick="deleteItem('${type}','${item.id}')" title="Löschen">🗑️</button>
+      </div>
+      ${item.time ? `<div class="card-time">⏰ ${esc(item.time)}</div>` : ''}
+      <h3>${esc(item.title)}</h3>
+      ${item.desc ? `<div class="card-desc">${esc(item.desc)}</div>` : ''}
+      <div class="signups">
+        <div class="signups-title">
+          <span>Eingetragen</span>
+          <span class="count-badge">${count}</span>
+        </div>
+        ${signupsHtml}
+        <button class="btn-signup" onclick="openSignupModal('${item.id}','${type}')">＋ Eintragen</button>
+      </div>
+    </div>`;
+}
+
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderList(items, type, containerId) {
+  const container = document.getElementById(containerId);
+  if (items.length === 0) {
+    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="emoji">✨</div><p>Noch keine ${type === 'workshop' ? 'Workshops' : 'Aufgaben'} vorhanden.<br>Füge den ersten hinzu!</p></div>`;
+    return;
+  }
+  container.innerHTML = items.map(i => renderCard(i, type)).join('');
+}
+
+// ── LOAD ──
+function loadAll() {
+  // Workshops
+  onSnapshot(query(collection(db, 'workshops'), orderBy('createdAt', 'asc')), async snapshot => {
+    const items = [];
+    const promises = snapshot.docs.map(async d => {
+      const signupSnap = await new Promise(resolve => {
+        onSnapshot(collection(db, 'workshops', d.id, 'signups'), resolve);
+      });
+      items.push({ id: d.id, ...d.data(), signups: signupSnap.docs.map(s => ({ id: s.id, ...s.data() })) });
+    });
+    // Use live sub-collections
+    snapshot.docs.forEach(d => {
+      onSnapshot(collection(db, 'workshops', d.id, 'signups'), snap => {
+        const idx = workshopsData.findIndex(x => x.id === d.id);
+        if (idx >= 0) {
+          workshopsData[idx].signups = snap.docs.map(s => ({ id: s.id, ...s.data() }));
+          renderList(workshopsData, 'workshop', 'workshopList');
+        }
+      });
+    });
+    workshopsData = snapshot.docs.map(d => ({ id: d.id, ...d.data(), signups: [] }));
+    renderList(workshopsData, 'workshop', 'workshopList');
+  });
+
+  // Aufgaben
+  onSnapshot(query(collection(db, 'aufgaben'), orderBy('createdAt', 'asc')), snapshot => {
+    snapshot.docs.forEach(d => {
+      onSnapshot(collection(db, 'aufgaben', d.id, 'signups'), snap => {
+        const idx = aufgabenData.findIndex(x => x.id === d.id);
+        if (idx >= 0) {
+          aufgabenData[idx].signups = snap.docs.map(s => ({ id: s.id, ...s.data() }));
+          renderList(aufgabenData, 'aufgabe', 'aufgabeList');
+        }
+      });
+    });
+    aufgabenData = snapshot.docs.map(d => ({ id: d.id, ...d.data(), signups: [] }));
+    renderList(aufgabenData, 'aufgabe', 'aufgabeList');
+  });
+}
+</script>
+</body>
+</html>

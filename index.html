@@ -68,11 +68,13 @@ header p  { margin-top: 4px; font-size: 0.9rem; opacity: 0.85; font-weight: 700;
 .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
 .section-title { display: flex; align-items: center; gap: 10px; }
 .section-title h2 { font-size: 1.4rem; font-weight: 900; }
+.cat-menu      .section-title h2 { color: #16a34a; }
 .cat-kids      .section-title h2 { color: #f97316; }
 .cat-inhalt    .section-title h2 { color: var(--purple); }
 .cat-olympiade .section-title h2 { color: var(--teal); }
 
 .btn-add { color: white; border: none; padding: 10px 20px; border-radius: 12px; font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: box-shadow 0.2s; }
+.cat-menu      .btn-add { background: linear-gradient(135deg, #16a34a, #4ade80); box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
 .cat-kids      .btn-add { background: linear-gradient(135deg, #f97316, #fbbf24); box-shadow: 0 4px 12px rgba(249,115,22,0.3); }
 .cat-inhalt    .btn-add { background: linear-gradient(135deg, var(--purple), var(--pink)); box-shadow: 0 4px 12px rgba(124,92,191,0.3); }
 .cat-olympiade .btn-add { background: linear-gradient(135deg, var(--teal), var(--blue)); box-shadow: 0 4px 12px rgba(43,191,164,0.3); }
@@ -84,11 +86,13 @@ header p  { margin-top: 4px; font-size: 0.9rem; opacity: 0.85; font-weight: 700;
 .card { background: white; border-radius: 20px; padding: 22px 20px 18px; box-shadow: 0 4px 20px var(--shadow); border: 2.5px solid var(--border); position: relative; transition: transform 0.15s, box-shadow 0.15s; }
 .card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--shadow); }
 .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; border-radius: 20px 20px 0 0; }
+.cat-menu      .card::before { background: linear-gradient(90deg, #16a34a, #4ade80); }
 .cat-kids      .card::before { background: linear-gradient(90deg, #f97316, #fbbf24); }
 .cat-inhalt    .card::before { background: linear-gradient(90deg, var(--purple), var(--pink)); }
 .cat-olympiade .card::before { background: linear-gradient(90deg, var(--teal), var(--blue)); }
 
 .card-time { display: inline-block; font-size: 0.75rem; font-weight: 800; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
+.cat-menu      .card-time { background: #dcfce7; color: #16a34a; }
 .cat-kids      .card-time { background: #fff3e0; color: #f97316; }
 .cat-inhalt    .card-time { background: #f0ebff; color: var(--purple); }
 .cat-olympiade .card-time { background: #e0faf5; color: var(--teal); }
@@ -106,6 +110,7 @@ header p  { margin-top: 4px; font-size: 0.9rem; opacity: 0.85; font-weight: 700;
 .signups { border-top: 2px dashed var(--border); padding-top: 14px; margin-top: 4px; }
 .signups-title { font-size: 0.75rem; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
 .count-badge { color: white; font-size: 0.72rem; font-weight: 900; padding: 2px 8px; border-radius: 10px; }
+.cat-menu      .count-badge { background: linear-gradient(135deg, #16a34a, #4ade80); }
 .cat-kids      .count-badge { background: linear-gradient(135deg, #f97316, #fbbf24); }
 .cat-inhalt    .count-badge { background: linear-gradient(135deg, var(--purple), var(--pink)); }
 .cat-olympiade .count-badge { background: linear-gradient(135deg, var(--teal), var(--blue)); }
@@ -117,6 +122,7 @@ header p  { margin-top: 4px; font-size: 0.9rem; opacity: 0.85; font-weight: 700;
 .signup-item:hover .signup-actions { opacity: 1; }
 
 .btn-signup { color: white; border: none; padding: 8px 16px; border-radius: 10px; font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 0.83rem; cursor: pointer; margin-top: 6px; transition: box-shadow 0.2s; }
+.cat-menu      .btn-signup { background: linear-gradient(135deg, #16a34a, #4ade80); box-shadow: 0 3px 10px rgba(22,163,74,0.25); }
 .cat-kids      .btn-signup { background: linear-gradient(135deg, #f97316, #fbbf24); box-shadow: 0 3px 10px rgba(249,115,22,0.25); }
 .cat-inhalt    .btn-signup { background: linear-gradient(135deg, var(--purple), var(--pink)); box-shadow: 0 3px 10px rgba(124,92,191,0.25); }
 .cat-olympiade .btn-signup { background: linear-gradient(135deg, var(--teal), var(--blue)); box-shadow: 0 3px 10px rgba(43,191,164,0.25); }
@@ -175,13 +181,23 @@ header p  { margin-top: 4px; font-size: 0.9rem; opacity: 0.85; font-weight: 700;
 
     <!-- TABS -->
     <div class="tabs">
-      <button class="tab-btn tab-kids active"      onclick="showTab('kids')">🧒 Workshop-Leitung Kids</button>
+      <button class="tab-btn tab-menu active"      onclick="showTab('menu')">🍽️ Menuplanung</button>
+      <button class="tab-btn tab-kids"               onclick="showTab('kids')">🧒 Workshop-Leitung Kids</button>
       <button class="tab-btn tab-inhalt"           onclick="showTab('inhalt')">🎯 Workshop-Leitung Inhalt</button>
       <button class="tab-btn tab-olympiade"        onclick="showTab('olympiade')">🏅 Workshop-Leitung Olympiade</button>
     </div>
 
+    <!-- MENU -->
+    <div id="tab-menu" class="cat-menu">
+      <div class="section-header">
+        <div class="section-title"><span style="font-size:1.6rem">🍽️</span><h2>Menuplanung</h2></div>
+        <button class="btn-add admin-only" onclick="openModal('menu')">＋ Workshop hinzufügen</button>
+      </div>
+      <div class="cards-grid" id="list-menu"></div>
+    </div>
+
     <!-- KIDS -->
-    <div id="tab-kids" class="cat-kids">
+    <div id="tab-kids" class="cat-kids" style="display:none">
       <div class="section-header">
         <div class="section-title"><span style="font-size:1.6rem">🧒</span><h2>Workshop-Leitung Kids</h2></div>
         <button class="btn-add admin-only" onclick="openModal('kids')">＋ Workshop hinzufügen</button>
@@ -277,9 +293,10 @@ const MAX_SIGNUPS = 2;
 
 // Firestore collections per category
 const CATS = {
-  kids:      { col: 'workshops_kids',      label: 'Kids',      emoji: '🧒' },
-  inhalt:    { col: 'workshops_inhalt',     label: 'Inhalt',    emoji: '🎯' },
-  olympiade: { col: 'workshops_olympiade',  label: 'Olympiade', emoji: '🏅' },
+  menu:      { col: 'workshops_menu',       label: 'Menuplanung', emoji: '🍽️' },
+  kids:      { col: 'workshops_kids',       label: 'Kids',        emoji: '🧒' },
+  inhalt:    { col: 'workshops_inhalt',     label: 'Inhalt',      emoji: '🎯' },
+  olympiade: { col: 'workshops_olympiade',  label: 'Olympiade',   emoji: '🏅' },
 };
 
 let isAdmin = false;
@@ -289,7 +306,7 @@ let signupTargetId = null, signupTargetCat = null;
 let editingSignupId = null, editingSignupParentId = null, editingSignupParentCat = null;
 
 // data per category
-const data = { kids: [], inhalt: [], olympiade: [] };
+const data = { menu: [], kids: [], inhalt: [], olympiade: [] };
 
 // ── TOAST ──
 function toast(msg) {
@@ -330,7 +347,7 @@ window.logout = function() {
 // ── TABS ──
 window.showTab = function(tab) {
   currentTab = tab;
-  ['kids','inhalt','olympiade'].forEach(c => {
+  ['menu','kids','inhalt','olympiade'].forEach(c => {
     document.getElementById('tab-'+c).style.display = c===tab ? 'block' : 'none';
   });
   document.querySelectorAll('.tab-btn').forEach(b => {
@@ -524,6 +541,7 @@ function loadCat(cat) {
 }
 
 function loadAll() {
+  loadCat('menu');
   loadCat('kids');
   loadCat('inhalt');
   loadCat('olympiade');

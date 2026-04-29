@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Gemeinschafts-Wochenende 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff9f0;
+  --purple: #7c5cbf;
+  --pink: #e8437a;
+  --orange: #ff7a2f;
+  --teal: #2bbfa4;
+  --yellow: #ffc94a;
+  --blue: #3b82f6;
+  --green: #22c55e;
+  --text: #1a1a2e;
+  --text-soft: #6b6b8a;
+  --border: #e8e0f0;
+  --shadow: rgba(124,92,191,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; min-height: 100vh; }
+
+header {
+  background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+  color: white; padding: 28px 24px 24px; position: relative; overflow: hidden;
+}
+header::before { content: '🎉'; position: absolute; font-size: 6rem; top: -20px; right: -10px; opacity: 0.18; transform: rotate(15deg); }
+header::after  { content: '⭐'; position: absolute; font-size: 4rem; bottom: -10px; left: 30px; opacity: 0.15; transform: rotate(-10deg); }
+header h1 { font-size: 1.9rem; font-weight: 900; line-height: 1.15; text-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+header p  { margin-top: 4px; font-size: 0.9rem; opacity: 0.85; font-weight: 700; }
+
+.user-pill { display: none; align-items: center; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.role-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.82rem; font-weight: 800; }
+.role-badge.user  { background: rgba(255,255,255,0.2); }
+.role-badge.admin { background: var(--yellow); color: #1a1a2e; }
+.logout-btn { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 4px 12px; border-radius: 20px; font-family: 'Nunito',sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.logout-btn:hover { background: rgba(255,255,255,0.3); }
+
+/* LOGIN */
+#loginScreen { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 130px); padding: 40px 20px; }
+.login-card { background: white; border-radius: 24px; padding: 44px 36px; max-width: 360px; width: 100%; box-shadow: 0 12px 48px var(--shadow); text-align: center; border: 3px solid var(--border); }
+.login-card .icon { font-size: 3rem; margin-bottom: 12px; }
+.login-card h2 { font-size: 1.6rem; font-weight: 900; color: var(--purple); margin-bottom: 6px; }
+.login-card p { color: var(--text-soft); font-size: 0.88rem; margin-bottom: 24px; line-height: 1.5; }
+.login-card input { width: 100%; padding: 14px 16px; border: 2.5px solid var(--border); border-radius: 12px; font-family: 'Nunito',sans-serif; font-size: 1.1rem; font-weight: 800; text-align: center; letter-spacing: 4px; color: var(--text); transition: border-color 0.2s; background: var(--bg); }
+.login-card input:focus { outline: none; border-color: var(--purple); }
+.btn-login { width: 100%; margin-top: 14px; padding: 14px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: white; border: none; border-radius: 12px; font-family: 'Nunito',sans-serif; font-size: 1rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 16px rgba(124,92,191,0.35); transition: box-shadow 0.2s, transform 0.1s; }
+.btn-login:hover { box-shadow: 0 6px 24px rgba(124,92,191,0.5); }
+.btn-login:active { transform: scale(0.97); }
+.login-error { color: var(--pink); font-size: 0.85rem; margin-top: 10px; display: none; font-weight: 700; }
+
+/* APP */
+#app { display: none; }
+.container { max-width: 1000px; margin: 0 auto; padding: 28px 16px 60px; }
+
+/* TABS */
+.tabs { display: flex; gap: 5px; background: white; border-radius: 16px; padding: 6px; margin-bottom: 32px; box-shadow: 0 2px 16px var(--shadow); border: 2px solid var(--border); flex-wrap: wrap; }
+.tab-btn { flex: 1; min-width: 120px; padding: 11px 8px; border: none; background: transparent; border-radius: 12px; font-family: 'Nunito',sans-serif; font-size: 0.88rem; font-weight: 800; color: var(--text-soft); cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.tab-btn.active { color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.tab-btn.tab-kids.active    { background: linear-gradient(135deg, #f97316, #fbbf24); }
+.tab-btn.tab-inhalt.active  { background: linear-gradient(135deg, var(--purple), var(--pink)); }
+.tab-btn.tab-olympiade.active { background: linear-gradient(135deg, var(--teal), var(--blue)); }
+
+/* SECTION HEADER */
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.section-title { display: flex; align-items: center; gap: 10px; }
+.section-title h2 { font-size: 1.4rem; font-weight: 900; }
+.cat-menu      .section-title h2 { color: #16a34a; }
+.cat-kids      .section-title h2 { color: #f97316; }
+.cat-inhalt    .section-title h2 { color: var(--purple); }
+.cat-olympiade .section-title h2 { color: var(--teal); }
+
+.btn-add { color: white; border: none; padding: 10px 20px; border-radius: 12px; font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: box-shadow 0.2s; }
+.cat-menu      .btn-add { background: linear-gradient(135deg, #16a34a, #4ade80); box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
+.cat-kids      .btn-add { background: linear-gradient(135deg, #f97316, #fbbf24); box-shadow: 0 4px 12px rgba(249,115,22,0.3); }
+.cat-inhalt    .btn-add { background: linear-gradient(135deg, var(--purple), var(--pink)); box-shadow: 0 4px 12px rgba(124,92,191,0.3); }
+.cat-olympiade .btn-add { background: linear-gradient(135deg, var(--teal), var(--blue)); box-shadow: 0 4px 12px rgba(43,191,164,0.3); }
+.admin-only { display: none; }
+
+/* CARDS */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+
+.card { background: white; border-radius: 20px; padding: 22px 20px 18px; box-shadow: 0 4px 20px var(--shadow); border: 2.5px solid var(--border); position: relative; transition: transform 0.15s, box-shadow 0.15s; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--shadow); }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; border-radius: 20px 20px 0 0; }
+.cat-menu      .card::before { background: linear-gradient(90deg, #16a34a, #4ade80); }
+.cat-kids      .card::before { background: linear-gradient(90deg, #f97316, #fbbf24); }
+.cat-inhalt    .card::before { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+.cat-olympiade .card::before { background: linear-gradient(90deg, var(--teal), var(--blue)); }
+
+.card-time { display: inline-block; font-size: 0.75rem; font-weight: 800; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
+.cat-menu      .card-time { background: #dcfce7; color: #16a34a; }
+.cat-kids      .card-time { background: #fff3e0; color: #f97316; }
+.cat-inhalt    .card-time { background: #f0ebff; color: var(--purple); }
+.cat-olympiade .card-time { background: #e0faf5; color: var(--teal); }
+
+.card h3 { font-size: 1.1rem; font-weight: 900; color: var(--text); margin-bottom: 6px; padding-right: 52px; }
+.card-desc { color: var(--text-soft); font-size: 0.87rem; line-height: 1.5; margin-bottom: 16px; }
+
+.card-actions { position: absolute; top: 14px; right: 14px; display: flex; gap: 5px; opacity: 0; transition: opacity 0.2s; }
+.card:hover .card-actions { opacity: 1; }
+.btn-icon { width: 30px; height: 30px; border: none; border-radius: 8px; background: var(--bg); cursor: pointer; font-size: 0.82rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.btn-icon:hover { background: var(--border); }
+.btn-icon.delete:hover { background: #ffe0e8; }
+
+/* SIGNUPS */
+.signups { border-top: 2px dashed var(--border); padding-top: 14px; margin-top: 4px; }
+.signups-title { font-size: 0.75rem; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+.count-badge { color: white; font-size: 0.72rem; font-weight: 900; padding: 2px 8px; border-radius: 10px; }
+.cat-menu      .count-badge { background: linear-gradient(135deg, #16a34a, #4ade80); }
+.cat-kids      .count-badge { background: linear-gradient(135deg, #f97316, #fbbf24); }
+.cat-inhalt    .count-badge { background: linear-gradient(135deg, var(--purple), var(--pink)); }
+.cat-olympiade .count-badge { background: linear-gradient(135deg, var(--teal), var(--blue)); }
+
+.signup-item { background: var(--bg); border-radius: 10px; padding: 9px 12px; margin-bottom: 7px; position: relative; border: 1.5px solid var(--border); }
+.signup-name { font-weight: 800; font-size: 0.88rem; color: var(--text); }
+.signup-note { font-size: 0.8rem; color: var(--text-soft); margin-top: 2px; line-height: 1.4; }
+.signup-actions { position: absolute; top: 7px; right: 7px; display: flex; gap: 4px; opacity: 0; transition: opacity 0.2s; }
+.signup-item:hover .signup-actions { opacity: 1; }
+
+.btn-signup { color: white; border: none; padding: 8px 16px; border-radius: 10px; font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 0.83rem; cursor: pointer; margin-top: 6px; transition: box-shadow 0.2s; }
+.cat-menu      .btn-signup { background: linear-gradient(135deg, #16a34a, #4ade80); box-shadow: 0 3px 10px rgba(22,163,74,0.25); }
+.cat-kids      .btn-signup { background: linear-gradient(135deg, #f97316, #fbbf24); box-shadow: 0 3px 10px rgba(249,115,22,0.25); }
+.cat-inhalt    .btn-signup { background: linear-gradient(135deg, var(--purple), var(--pink)); box-shadow: 0 3px 10px rgba(124,92,191,0.25); }
+.cat-olympiade .btn-signup { background: linear-gradient(135deg, var(--teal), var(--blue)); box-shadow: 0 3px 10px rgba(43,191,164,0.25); }
+.full-badge { text-align:center; padding:8px; background:#ffe0e8; border-radius:10px; font-weight:800; font-size:0.82rem; color:var(--pink); margin-top:6px; }
+
+.empty-state { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-soft); }
+.empty-state .emoji { font-size: 3rem; margin-bottom: 12px; }
+.empty-state p { font-size: 1rem; font-weight: 700; line-height: 1.6; }
+
+/* MODALS */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(26,26,46,0.5); z-index: 200; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(3px); }
+.modal-overlay.open { display: flex; }
+.modal { background: white; border-radius: 24px; padding: 32px 28px; max-width: 460px; width: 100%; box-shadow: 0 24px 64px rgba(124,92,191,0.25); animation: popIn 0.2s cubic-bezier(0.34,1.56,0.64,1); border: 2.5px solid var(--border); }
+@keyframes popIn { from { transform: scale(0.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal h3 { font-size: 1.35rem; font-weight: 900; color: var(--purple); margin-bottom: 20px; }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.form-group input, .form-group textarea { width: 100%; padding: 12px 14px; border: 2.5px solid var(--border); border-radius: 12px; font-family: 'Nunito',sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); background: var(--bg); transition: border-color 0.2s; resize: vertical; }
+.form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--purple); }
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.btn-cancel { flex: 1; padding: 12px; border: 2.5px solid var(--border); background: transparent; border-radius: 12px; font-family: 'Nunito',sans-serif; font-weight: 800; color: var(--text-soft); cursor: pointer; transition: all 0.2s; }
+.btn-cancel:hover { border-color: var(--purple); color: var(--purple); }
+.btn-save { flex: 2; padding: 12px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: white; border: none; border-radius: 12px; font-family: 'Nunito',sans-serif; font-weight: 900; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 14px rgba(124,92,191,0.35); transition: box-shadow 0.2s; }
+.btn-save:hover { box-shadow: 0 6px 22px rgba(124,92,191,0.5); }
+
+#toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--text); color: white; padding: 12px 24px; border-radius: 30px; font-weight: 800; font-size: 0.9rem; z-index: 999; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none; white-space: nowrap; }
+#toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎊 Gemeinschafts-Wochenende 2026</h1>
+  <p>Workshops · Koordination</p>
+  <div class="user-pill" id="userPill">
+    <span class="role-badge" id="roleBadge"></span>
+    <button class="logout-btn" onclick="logout()">Abmelden</button>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="icon">🏕️</div>
+    <h2>Willkommen!</h2>
+    <p>Gib das Passwort ein, um dich für Workshops einzutragen.</p>
+    <input type="password" id="passwordInput" placeholder="••••••••••" onkeydown="if(event.key==='Enter')login()">
+    <button class="btn-login" onclick="login()">Los geht's! 🚀</button>
+    <p class="login-error" id="loginError">❌ Falsches Passwort!</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="container">
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn tab-menu active"      onclick="showTab('menu')">🍽️ Menuplanung</button>
+      <button class="tab-btn tab-kids"               onclick="showTab('kids')">🧒 Workshop-Leitung Kids</button>
+      <button class="tab-btn tab-inhalt"           onclick="showTab('inhalt')">🎯 Workshop-Leitung Inhalt</button>
+      <button class="tab-btn tab-olympiade"        onclick="showTab('olympiade')">🏅 Workshop-Leitung Olympiade</button>
+    </div>
+
+    <!-- MENU -->
+    <div id="tab-menu" class="cat-menu">
+      <div class="section-header">
+        <div class="section-title"><span style="font-size:1.6rem">🍽️</span><h2>Menuplanung</h2></div>
+        <button class="btn-add admin-only" onclick="openModal('menu')">＋ Workshop hinzufügen</button>
+      </div>
+      <div class="cards-grid" id="list-menu"></div>
+    </div>
+
+    <!-- KIDS -->
+    <div id="tab-kids" class="cat-kids" style="display:none">
+      <div class="section-header">
+        <div class="section-title"><span style="font-size:1.6rem">🧒</span><h2>Workshop-Leitung Kids</h2></div>
+        <button class="btn-add admin-only" onclick="openModal('kids')">＋ Workshop hinzufügen</button>
+      </div>
+      <div class="cards-grid" id="list-kids"></div>
+    </div>
+
+    <!-- INHALT -->
+    <div id="tab-inhalt" class="cat-inhalt" style="display:none">
+      <div class="section-header">
+        <div class="section-title"><span style="font-size:1.6rem">🎯</span><h2>Workshop-Leitung Inhalt</h2></div>
+        <button class="btn-add admin-only" onclick="openModal('inhalt')">＋ Workshop hinzufügen</button>
+      </div>
+      <div class="cards-grid" id="list-inhalt"></div>
+    </div>
+
+    <!-- OLYMPIADE -->
+    <div id="tab-olympiade" class="cat-olympiade" style="display:none">
+      <div class="section-header">
+        <div class="section-title"><span style="font-size:1.6rem">🏅</span><h2>Workshop-Leitung Olympiade</h2></div>
+        <button class="btn-add admin-only" onclick="openModal('olympiade')">＋ Workshop hinzufügen</button>
+      </div>
+      <div class="cards-grid" id="list-olympiade"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL: Item -->
+<div class="modal-overlay" id="itemModal">
+  <div class="modal">
+    <h3 id="modalTitle">Workshop hinzufügen</h3>
+    <div class="form-group"><label>Titel *</label><input type="text" id="itemTitle" placeholder="z.B. Bibelstunde"></div>
+    <div class="form-group"><label>Beschreibung</label><textarea id="itemDesc" rows="3" placeholder="Kurze Beschreibung..."></textarea></div>
+    <div class="form-group"><label>Zeit / Wann</label><input type="text" id="itemTime" placeholder="z.B. Samstag, 14:00–16:00 Uhr"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('itemModal')">Abbrechen</button>
+      <button class="btn-save" onclick="saveItem()">💾 Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Signup -->
+<div class="modal-overlay" id="signupModal">
+  <div class="modal">
+    <h3 id="signupModalTitle">Eintragen</h3>
+    <div class="form-group"><label>Dein Name *</label><input type="text" id="signupName" placeholder="Vorname Nachname"></div>
+    <div class="form-group"><label>Bemerkung <span style="font-weight:400;text-transform:none">(optional)</span></label><textarea id="signupNote" rows="2" placeholder="z.B. Ich bringe Material mit..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('signupModal')">Abbrechen</button>
+      <button class="btn-save" onclick="saveSignup()">🙋 Eintragen</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Edit Signup -->
+<div class="modal-overlay" id="editSignupModal">
+  <div class="modal">
+    <h3>✏️ Eintrag bearbeiten</h3>
+    <div class="form-group"><label>Name</label><input type="text" id="editSignupName"></div>
+    <div class="form-group"><label>Bemerkung</label><textarea id="editSignupNote" rows="2"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('editSignupModal')">Abbrechen</button>
+      <button class="btn-save" onclick="saveEditSignup()">💾 Speichern</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  getFirestore, collection, addDoc, onSnapshot,
+  doc, updateDoc, deleteDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA3Elnmu6pNAsAgkvxdEEJdTYV5bdXzrWE",
+  authDomain: "workshop-gemeinschafts-we.firebaseapp.com",
+  projectId: "workshop-gemeinschafts-we",
+  storageBucket: "workshop-gemeinschafts-we.firebasestorage.app",
+  messagingSenderId: "118344500587",
+  appId: "1:118344500587:web:e0cedbfb22c0c8db2ff82e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+const PASSWORD_USER  = "VauMarcus26";
+const PASSWORD_ADMIN = "VauMarcus*26";
+const MAX_SIGNUPS = 2;
+
+// Firestore collections per category
+const CATS = {
+  menu:      { col: 'workshops_menu',       label: 'Menuplanung', emoji: '🍽️' },
+  kids:      { col: 'workshops_kids',       label: 'Kids',        emoji: '🧒' },
+  inhalt:    { col: 'workshops_inhalt',     label: 'Inhalt',      emoji: '🎯' },
+  olympiade: { col: 'workshops_olympiade',  label: 'Olympiade',   emoji: '🏅' },
+};
+
+let isAdmin = false;
+let currentTab = 'kids';
+let editingItemId = null, editingItemCat = null;
+let signupTargetId = null, signupTargetCat = null;
+let editingSignupId = null, editingSignupParentId = null, editingSignupParentCat = null;
+
+// data per category
+const data = { menu: [], kids: [], inhalt: [], olympiade: [] };
+
+// ── TOAST ──
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── LOGIN ──
+window.login = function() {
+  const pw = document.getElementById('passwordInput').value;
+  if (pw === PASSWORD_ADMIN)      { isAdmin = true;  startApp(); }
+  else if (pw === PASSWORD_USER)  { isAdmin = false; startApp(); }
+  else { document.getElementById('loginError').style.display = 'block'; }
+};
+
+function startApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('userPill').style.display = 'flex';
+  const badge = document.getElementById('roleBadge');
+  if (isAdmin) { badge.textContent = '⭐ Workshop-Leitung'; badge.className = 'role-badge admin'; }
+  else         { badge.textContent = '✓ Angemeldet';        badge.className = 'role-badge user'; }
+  document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? 'inline-flex' : 'none');
+  loadAll();
+}
+
+window.logout = function() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('userPill').style.display = 'none';
+  document.getElementById('passwordInput').value = '';
+  document.getElementById('loginError').style.display = 'none';
+  isAdmin = false;
+};
+
+// ── TABS ──
+window.showTab = function(tab) {
+  currentTab = tab;
+  ['menu','kids','inhalt','olympiade'].forEach(c => {
+    document.getElementById('tab-'+c).style.display = c===tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.classList.contains('tab-'+tab));
+  });
+};
+
+// ── MODALS ──
+window.openModal = function(cat, id=null) {
+  if (!isAdmin) return;
+  editingItemCat = cat; editingItemId = id;
+  const label = CATS[cat].label;
+  document.getElementById('modalTitle').textContent =
+    id ? `✏️ Workshop bearbeiten (${label})` : `${CATS[cat].emoji} Workshop hinzufügen – ${label}`;
+  if (id) {
+    const item = data[cat].find(x=>x.id===id);
+    document.getElementById('itemTitle').value = item?.title||'';
+    document.getElementById('itemDesc').value  = item?.desc||'';
+    document.getElementById('itemTime').value  = item?.time||'';
+  } else {
+    document.getElementById('itemTitle').value = '';
+    document.getElementById('itemDesc').value  = '';
+    document.getElementById('itemTime').value  = '';
+  }
+  document.getElementById('itemModal').classList.add('open');
+  setTimeout(() => document.getElementById('itemTitle').focus(), 100);
+};
+
+window.closeModal = function(id) { document.getElementById(id).classList.remove('open'); };
+
+window.openSignupModal = function(itemId, cat) {
+  signupTargetId = itemId; signupTargetCat = cat;
+  document.getElementById('signupModalTitle').textContent = `🙋 Für Workshop eintragen – ${CATS[cat].label}`;
+  document.getElementById('signupName').value = '';
+  document.getElementById('signupNote').value = '';
+  document.getElementById('signupModal').classList.add('open');
+  setTimeout(() => document.getElementById('signupName').focus(), 100);
+};
+
+window.openEditSignupModal = function(parentId, cat, signupId, name, note) {
+  editingSignupId=signupId; editingSignupParentId=parentId; editingSignupParentCat=cat;
+  document.getElementById('editSignupName').value = name;
+  document.getElementById('editSignupNote').value = note||'';
+  document.getElementById('editSignupModal').classList.add('open');
+};
+
+document.querySelectorAll('.modal-overlay').forEach(el =>
+  el.addEventListener('click', e => { if(e.target===el) el.classList.remove('open'); })
+);
+
+// ── SAVE ITEM ──
+window.saveItem = async function() {
+  if (!isAdmin) return;
+  const title = document.getElementById('itemTitle').value.trim();
+  const desc  = document.getElementById('itemDesc').value.trim();
+  const time  = document.getElementById('itemTime').value.trim();
+  if (!title) { alert('Bitte einen Titel eingeben!'); return; }
+  const col = CATS[editingItemCat].col;
+  try {
+    if (editingItemId) {
+      await updateDoc(doc(db, col, editingItemId), {title, desc, time});
+      toast('✅ Gespeichert!');
+    } else {
+      await addDoc(collection(db, col), {title, desc, time, createdAt: serverTimestamp()});
+      toast('🎉 Hinzugefügt!');
+    }
+    closeModal('itemModal');
+  } catch(e) { alert('Fehler: ' + e.message); }
+};
+
+window.deleteItem = async function(cat, id) {
+  if (!isAdmin) return;
+  if (!confirm('Wirklich löschen?')) return;
+  await deleteDoc(doc(db, CATS[cat].col, id));
+  toast('🗑️ Gelöscht');
+};
+
+// ── SIGNUP ──
+window.saveSignup = async function() {
+  const name = document.getElementById('signupName').value.trim();
+  const note = document.getElementById('signupNote').value.trim();
+  if (!name) { alert('Bitte deinen Namen eingeben!'); return; }
+  const item = data[signupTargetCat].find(x=>x.id===signupTargetId);
+  if (item && (item.signups||[]).length >= MAX_SIGNUPS) {
+    toast('❌ Bereits 2 Personen – voll!');
+    closeModal('signupModal');
+    return;
+  }
+  try {
+    await addDoc(collection(db, CATS[signupTargetCat].col, signupTargetId, 'signups'), {name, note, createdAt: serverTimestamp()});
+    toast('🙌 Eingetragen!');
+    closeModal('signupModal');
+  } catch(e) { alert('Fehler: ' + e.message); }
+};
+
+window.saveEditSignup = async function() {
+  const name = document.getElementById('editSignupName').value.trim();
+  const note = document.getElementById('editSignupNote').value.trim();
+  if (!name) return;
+  await updateDoc(doc(db, CATS[editingSignupParentCat].col, editingSignupParentId, 'signups', editingSignupId), {name, note});
+  toast('✅ Gespeichert!');
+  closeModal('editSignupModal');
+};
+
+window.deleteSignup = async function(cat, parentId, signupId) {
+  if (!confirm('Eintrag löschen?')) return;
+  await deleteDoc(doc(db, CATS[cat].col, parentId, 'signups', signupId));
+  toast('🗑️ Gelöscht');
+};
+
+// ── RENDER ──
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderCard(item, cat) {
+  const sigs = item.signups||[];
+  const full = sigs.length >= MAX_SIGNUPS;
+
+  const cardActions = isAdmin ? `
+    <div class="card-actions">
+      <button class="btn-icon" onclick="openModal('${cat}','${item.id}')">✏️</button>
+      <button class="btn-icon delete" onclick="deleteItem('${cat}','${item.id}')">🗑️</button>
+    </div>` : '';
+
+  const sigsHtml = sigs.length
+    ? sigs.map(s=>`
+        <div class="signup-item">
+          <div class="signup-name">👤 ${esc(s.name)}</div>
+          ${s.note ? `<div class="signup-note">💬 ${esc(s.note)}</div>` : ''}
+          <div class="signup-actions">
+            <button class="btn-icon" onclick="openEditSignupModal('${item.id}','${cat}','${s.id}',${JSON.stringify(s.name)},${JSON.stringify(s.note||'')})">✏️</button>
+            <button class="btn-icon delete" onclick="deleteSignup('${cat}','${item.id}','${s.id}')">🗑️</button>
+          </div>
+        </div>`).join('')
+    : `<div style="color:var(--text-soft);font-size:0.82rem;font-weight:700;padding:4px 0">Noch niemand eingetragen 👀</div>`;
+
+  const signupBtn = full
+    ? `<div class="full-badge">🔒 Voll – max. 2 Personen</div>`
+    : `<button class="btn-signup" onclick="openSignupModal('${item.id}','${cat}')">＋ Eintragen</button>`;
+
+  return `
+    <div class="card">
+      ${cardActions}
+      ${item.time ? `<div class="card-time">⏰ ${esc(item.time)}</div>` : ''}
+      <h3>${esc(item.title)}</h3>
+      ${item.desc ? `<div class="card-desc">${esc(item.desc)}</div>` : ''}
+      <div class="signups">
+        <div class="signups-title">
+          <span>Eingetragen (${sigs.length}/${MAX_SIGNUPS})</span>
+          <span class="count-badge">${sigs.length}/${MAX_SIGNUPS}</span>
+        </div>
+        ${sigsHtml}
+        ${signupBtn}
+      </div>
+    </div>`;
+}
+
+function renderList(cat) {
+  const items = data[cat];
+  const el = document.getElementById('list-'+cat);
+  if (!items.length) {
+    el.innerHTML = `<div class="empty-state"><div class="emoji">${CATS[cat].emoji}</div><p>Noch keine Workshops vorhanden.<br>Füge den ersten hinzu!</p></div>`;
+    return;
+  }
+  el.innerHTML = items.map(i=>renderCard(i,cat)).join('');
+}
+
+// ── LOAD ──
+function loadCat(cat) {
+  const col = CATS[cat].col;
+  onSnapshot(collection(db, col), snapshot => {
+    const prev = [...data[cat]];
+    data[cat].length = 0;
+    snapshot.docs.forEach(d => {
+      const existing = prev.find(x=>x.id===d.id);
+      data[cat].push({ id: d.id, ...d.data(), signups: existing?.signups||[] });
+    });
+    data[cat].sort((a,b) => (a.createdAt?.seconds||0)-(b.createdAt?.seconds||0));
+    renderList(cat);
+    snapshot.docs.forEach(d => {
+      onSnapshot(collection(db, col, d.id, 'signups'), snap => {
+        const idx = data[cat].findIndex(x=>x.id===d.id);
+        if (idx>=0) {
+          data[cat][idx].signups = snap.docs.map(s=>({id:s.id,...s.data()}));
+          renderList(cat);
+        }
+      });
+    });
+  });
+}
+
+function loadAll() {
+  loadCat('menu');
+  loadCat('kids');
+  loadCat('inhalt');
+  loadCat('olympiade');
+}
+</script>
+</body>
+</html>
